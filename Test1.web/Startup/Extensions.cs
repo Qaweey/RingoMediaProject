@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
+using Test.Core.Interface;
+using Test.Core.Services;
 using Test.Infrastructure;
 
 namespace Test.Web.Startup
@@ -15,6 +17,8 @@ namespace Test.Web.Startup
         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IReminderRepository, ReminderRepository>();
             services.AddRazorPages();
             return services;    
         }

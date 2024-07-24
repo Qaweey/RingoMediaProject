@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Test.Core.Interface;
 using Test.Domain.Entities;
 using Test.Infrastructure;
 
@@ -9,12 +10,14 @@ namespace Test.Web.Controllers
 {
     public class DepartmentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        
+        private readonly IDepartmentRepository _department;
         private readonly ILogger<DepartmentsController> _logger;
 
-        public DepartmentsController(ApplicationDbContext context, ILogger<DepartmentsController> logger)
+        public DepartmentsController(IDepartmentRepository department, ILogger<DepartmentsController> logger)
         {
-            _context = context;
+            
+            _department = department;
             _logger = logger;
         }
 
@@ -22,7 +25,7 @@ namespace Test.Web.Controllers
         {
             try
             {
-                var departments = _context.Departments.Include(d => d.SubDepartments).ToList();
+                var departments =   _department.GetListOfDepartment();
                 _logger.LogInformation("Retrieved list of departments");
                 return View(departments);
             }
@@ -35,11 +38,11 @@ namespace Test.Web.Controllers
          
         }
 
-        public IActionResult Details(int id)
+        public   IActionResult Details(int id)
         {
             try
             {
-                var department = _context.Departments.Include(d => d.SubDepartments).FirstOrDefault(d => d.DepartmentId == id);
+                var department =    _department.GeDepartmentDetails(id);
                 if (department == null)
                 {
                     _logger.LogWarning("Department with ID {DepartmentId} not found", id);
