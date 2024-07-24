@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Test.Web.Pages.ReminderViews
+namespace Test1.web.Views.Departments
 {
-    public class CreateModel : PageModel
+    public class DetailsModel : PageModel
     {
         public void OnGet()
         {
