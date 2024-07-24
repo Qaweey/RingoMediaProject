@@ -1,0 +1,40 @@
+﻿@using Test.Domain.Entities
+
+@model IEnumerable<Reminder>
+
+@{
+    ViewData["Title"] = "Reminders";
+}
+
+<h1>Reminders</h1>
+
+<p>
+    <a asp-action="Create">Create New Reminder</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ReminderDateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReminderDateTime)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
